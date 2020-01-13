@@ -1,4 +1,5 @@
 import React from 'react';
+import DrumPad from './DrumPad'
 
 
 function App() {
@@ -16,15 +17,7 @@ function App() {
       </div>
       <div className="row justify-content-center text-center">
         <section className="col-6 bg-light">
-            <button type="button" className="btn btn-primary mr-1">Q</button>
-            <button type="button" className="btn btn-primary mr-1">W</button>
-            <button type="button" className="btn btn-primary mr-1">E</button>
-            <button type="button" className="btn btn-primary mr-1">A</button>
-            <button type="button" className="btn btn-primary mr-1">S</button>
-            <button type="button" className="btn btn-primary mr-1">D</button>
-            <button type="button" className="btn btn-primary mr-1">Z</button>
-            <button type="button" className="btn btn-primary mr-1">X</button>
-            <button type="button" className="btn btn-primary mr-1">C</button>
+        <DrumPad />
         </section>
       </div>
 
