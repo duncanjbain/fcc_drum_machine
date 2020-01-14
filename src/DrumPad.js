@@ -59,7 +59,10 @@ function DrumPad() {
     ]
 
     const drumPadItems = DRUM_PAD.map((item) =>
-        <button key={item.id} className="btn btn-primary" id={item.id} audioFile={item.audioFile}>{item.keyPress}</button>
+        <button key={item.id} className="btn btn-primary drum-pad" id={item.id}>
+            <audio id={item.id} src={item.audioFile} />
+            {item.keyPress}
+            </button>
     );
 
     return ( 

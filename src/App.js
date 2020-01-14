@@ -2,7 +2,16 @@ import React from 'react';
 import DrumPad from './DrumPad'
 
 
-function App() {
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      thisButtonIsActive: '',
+      audioIsActive: false,
+    }
+  }
+
+  render() {
   return (
     <div className="container"  id="drum-machine">
       <div className="row">
@@ -23,6 +32,7 @@ function App() {
 
     </div>
   );
+}
 }
 
 export default App;
