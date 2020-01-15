@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactFCCtest from 'react-fcctest';
 
 
 const DRUM_PAD = [{
@@ -68,10 +69,10 @@ class App extends React.Component {
     };
 
     this.handleClick = this.handleClick.bind(this);
-
+    this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.playSound = this.playSound.bind(this)
   }
 
-  
   componentDidMount() {
     document.addEventListener('keydown', this.handleKeyPress);
   }
@@ -80,22 +81,37 @@ class App extends React.Component {
     document.removeEventListener('keydown', this.handleKeyPress);
   }
 
-handleClick(event) {
-  this.setState({activeDisplay: event.target.id})
+handleKeyPress(event) {
+  if(event.keyCode === 81) {
+    this.setState({activeDisplay: 'Key Q Pushed'})
+    const sound = document.querySelector('#Q')
+    sound.currentTime = 0;
+    sound.play();
+  }
 }
 
+playSound(event) {
+  const audio = document.getElementById(this.props.keyPress);
+}
 
+handleClick(event) {
+  this.setState({activeDisplay: 'Key Q Pushed'})
+  const sound = document.querySelector('#Q')
+  sound.currentTime = 0;
+  sound.play();
+}
 
   render() {
 
     const drumPadItems = this.state.drumPad.map((item) =>
-<button key={item.id} className="btn btn-primary drum-pad" id={item.id} onClick={this.handleClick}>
-    <audio id={item.id} src={item.audioFile} />
-    {item.keyPress}
-    </button>)
+      <button key={item.id} className="btn btn-primary drum-pad" id={item.id} onClick={this.handleClick} >
+      <audio className="clip" id={item.keyPress} src={item.audioFile} type="audio/wav"/>
+      {item.keyPress}
+      </button>)
 
   return (
     <div className="container"  id="drum-machine">
+      <ReactFCCtest />
       <div className="row">
         <header className="col text-center">
           <h1>FCC Drum Machine</h1>
