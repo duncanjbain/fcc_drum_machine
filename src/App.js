@@ -1,5 +1,5 @@
 import React from 'react';
-import DrumPad from './DrumPad'
+
 
 const DRUM_PAD = [{
   keyCode: 81,
@@ -67,6 +67,7 @@ class App extends React.Component {
       drumPad: DRUM_PAD
     };
 
+    this.handleClick = this.handleClick.bind(this);
 
   }
 
@@ -79,11 +80,20 @@ class App extends React.Component {
     document.removeEventListener('keydown', this.handleKeyPress);
   }
 
-  handleClick = () => {
-    this.setState({activeDisplay: 'Test'})
-  }
+handleClick(event) {
+  this.setState({activeDisplay: event.target.id})
+}
+
+
 
   render() {
+
+    const drumPadItems = this.state.drumPad.map((item) =>
+<button key={item.id} className="btn btn-primary drum-pad" id={item.id} onClick={this.handleClick}>
+    <audio id={item.id} src={item.audioFile} />
+    {item.keyPress}
+    </button>)
+
   return (
     <div className="container"  id="drum-machine">
       <div className="row">
@@ -98,7 +108,9 @@ class App extends React.Component {
       </div>
       <div className="row justify-content-center text-center">
         <section className="col-6 bg-light">
-        <DrumPad  drumPad={this.state.drumPad}/>
+        <div className = "col-6 bg-light">
+            {drumPadItems}
+        </div>
         </section>
       </div>
 
