@@ -8,7 +8,24 @@ class App extends React.Component {
     this.state = {
       thisButtonIsActive: '',
       audioIsActive: false,
-    }
+      activeDisplay: 'Press a key to play the drums!'
+    };
+
+    this.handleClick = this.handleClick.bind(this);
+
+  }
+
+  
+  componentDidMount() {
+    document.addEventListener('keydown', this.handleKeyPress);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleKeyPress);
+  }
+
+  handleClick = () => {
+    this.setState({activeDisplay: 'Test'})
   }
 
   render() {
@@ -21,12 +38,12 @@ class App extends React.Component {
       </div>
       <div className="row justify-content-center text-center">
         <div className="col text-center">
-          <h3 id="display">Key Display</h3>
+          <h3 id="display">{this.state.activeDisplay}</h3>
         </div>
       </div>
       <div className="row justify-content-center text-center">
         <section className="col-6 bg-light">
-        <DrumPad />
+        <DrumPad  handleClick={this.handleClick}/>
         </section>
       </div>
 
