@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactFCCtest from 'react-fcctest';
-
+import DrumPad from './DrumPad';
 
 const DRUM_PAD = [{
   keyCode: 81,
@@ -57,57 +57,21 @@ const DRUM_PAD = [{
   audioFile: '/audio/drum-press-9.wav'
 }
 ]
-
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      thisButtonIsActive: '',
-      audioIsActive: false,
       activeDisplay: 'Press a key to play the drums!',
-      drumPad: DRUM_PAD
     };
-
-    this.handleClick = this.handleClick.bind(this);
-    this.handleKeyPress = this.handleKeyPress.bind(this);
-    this.playSound = this.playSound.bind(this)
-  }
-
-  componentDidMount() {
-    document.addEventListener('keydown', this.handleKeyPress);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('keydown', this.handleKeyPress);
-  }
-
-handleKeyPress(event) {
-  if(event.keyCode === 81) {
-    this.setState({activeDisplay: 'Key Q Pushed'})
-    const sound = document.querySelector('#Q')
-    sound.currentTime = 0;
-    sound.play();
-  }
+    this.changeActiveDisplay = this.changeActiveDisplay.bind(this);
 }
 
-playSound(event) {
-  const audio = document.getElementById(this.props.keyPress);
-}
+    changeActiveDisplay = id => {
+      this.setState({activeDisplay: id})
+    }
 
-handleClick(event) {
-  this.setState({activeDisplay: 'Key Q Pushed'})
-  const sound = document.querySelector('#Q')
-  sound.currentTime = 0;
-  sound.play();
-}
 
   render() {
-
-    const drumPadItems = this.state.drumPad.map((item) =>
-      <button key={item.id} className="btn btn-primary drum-pad" id={item.id} onClick={this.handleClick} >
-      <audio className="clip" id={item.keyPress} src={item.audioFile} type="audio/wav"/>
-      {item.keyPress}
-      </button>)
 
   return (
     <div className="container"  id="drum-machine">
@@ -124,9 +88,16 @@ handleClick(event) {
       </div>
       <div className="row justify-content-center text-center">
         <section className="col-6 bg-light">
-        <div className = "col-6 bg-light">
-            {drumPadItems}
-        </div>
+      {DRUM_PAD.map(item => (
+        <DrumPad
+          id={item.id}
+          key={item.id}
+          source={item.audioFile}
+          changeActiveDisplay={this.changeActiveDisplay}
+          keyPress={item.keyPress}
+          keyPressCode={item.keyCode}
+          />
+      ))}
         </section>
       </div>
 
